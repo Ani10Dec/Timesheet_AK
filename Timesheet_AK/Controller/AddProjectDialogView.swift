@@ -126,14 +126,18 @@ class AddProjectDialogView: UIViewController {
             AppConstants.ProjectConstants.PROJECT_IMPORTANCE: importance,
         ]
         
+        guard let uid = AuthFile.uid else {
+            return
+        }
+        
         let database = db.collection(AppConstants.USERS)
-            .document(Auth.auth().currentUser?.uid ?? "")
+            .document(uid)
             .collection(AppConstants.COLLECTION_NAME)
             .document(name)
         
         if with == AppConstants.CREATE {
             // Creating the new project
-           database.setData(docData) { error in
+            database.setData(docData) { error in
                 if let error = error {
                     print("There was an issue saving data in firestore, \(error)")
                 } else {

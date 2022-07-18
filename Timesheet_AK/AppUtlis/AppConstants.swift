@@ -8,6 +8,8 @@
 import Foundation
 
 struct AppConstants {
+    static let USER_UID = "uid"
+    static let ERROR = "Error"
     static let FIELD_MUST_FIELD = "All the fields must be filled"
     static let BACK = "Back"
     static let DISCARD = "Discard"
@@ -19,6 +21,7 @@ struct AppConstants {
     static let TASKS = "Tasks"
     static let USERS = "users"
     static let PROJECT_VC = "projectVC"
+    static let SIGN_IN = "signInVC"
     static let YES = "Yes"
     static let NO = "No"
     static let MAIN = "Main"
