@@ -32,7 +32,7 @@ class TaskViewController: UIViewController {
         refreshControl.attributedTitle = NSAttributedString(string: AppConstants.PULL_TO_REFRESH)
         refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
         tableView.addSubview(refreshControl)
-
+        
     }
     
     @objc func refresh(_ sender: AnyObject) {
@@ -41,14 +41,12 @@ class TaskViewController: UIViewController {
     
     private func loadFirebaseData() {
         
-        guard let uid = Auth.auth().currentUser?.uid else {
+        guard let uid = AuthFile.uid else {
             return
         }
         
-        print(uid)
-        
         db.collection(AppConstants.USERS)
-            .document(Auth.auth().currentUser?.uid ?? "")
+            .document(uid)
             .collection(AppConstants.COLLECTION_NAME).document(titleText).collection(AppConstants.TASKS)
             .addSnapshotListener { (snapShots, error) in
                 
@@ -113,19 +111,17 @@ class TaskViewController: UIViewController {
         dialogVC.modalTransitionStyle = .crossDissolve
         present(dialogVC, animated: true)
     }
-
+    
 }
 
 extension TaskViewController : UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if filterList.count == 0 {
-//            searchBar.isHidden = true
             self.tableView.setEmptyMessage(Constant.EMPLTY_TABLE_VIEW_TEXT)
-         } else {
-//             searchBar.isHidden = false
-             self.tableView.restore()
-         }
+        } else {
+            self.tableView.restore()
+        }
         
         return filterList.count
     }
@@ -172,27 +168,32 @@ extension TaskViewController : UITableViewDataSource, UITableViewDelegate {
             let alert = UIAlertController(title: AppConstants.WARNIING, message: Constant.REMOVE_TASK_TEXT, preferredStyle: .alert)
             
             let yes = UIAlertAction(title: AppConstants.YES, style: .destructive) { _ in
+                
+                guard let uid = AuthFile.uid else {
+                    return
+                }
+                
                 self.db.collection(AppConstants.USERS)
-                    .document(Auth.auth().currentUser?.uid ?? "")
+                    .document(uid)
                     .collection(AppConstants.COLLECTION_NAME)
                     .document(self.titleText)
                     .collection(AppConstants.TASKS)
                     .document(self.filterList[indexPath.row].TaskName)
                     .delete { error in
-        
-                    if let error = error {
-                        print("There was an issue deleting data in firestore, \(error)")
-                    } else {
-                        print("Successfully deleted the data.")
+                        
+                        if let error = error {
+                            print("There was an issue deleting data in firestore, \(error)")
+                        } else {
+                            print("Successfully deleted the data.")
+                        }
                     }
-                }
             }
             
             let no = UIAlertAction(title: AppConstants.NO, style: .default)
             
             alert.addAction(yes)
             alert.addAction(no)
-          
+            
             
             self.present(alert, animated: true)
         }

@@ -37,7 +37,6 @@ class SignUpViewController: UIViewController {
     }
     
     @IBAction func signUpBtnPressed(_ sender: UIButton) {
-        
         showLoader()
         
         guard let name = tfName.text, !name.isEmpty,
@@ -48,35 +47,45 @@ class SignUpViewController: UIViewController {
             return
         }
         
+  
+        
         if password == confirmPassword {
             
-            FirebaseAuth.Auth.auth().createUser(withEmail: email, password: confirmPassword, completion: { [weak self] authResult, authError in
+            Auth.auth().createUser(withEmail: email, password: confirmPassword, completion: { [weak self] authResult, authError in
                 
                 guard let strongSelf = self else {
                     return
                 }
                 
                 guard authError == nil else {
-                    strongSelf.showErrorAlert(title: Constant.ALERT_TITLE, message: Constant.ALERT_DESC)
+                    strongSelf.showErrorAlert(title: Constant.ALERT_TITLE, message: authError?.localizedDescription ?? Constant.ALERT_DESC)
+                    self!.hideLoader()
                     return
                 }
                 
-                self!.gotToDashboardScreen()
+                self!.gotToSignInScreen()
                 
             })
         } else {
-            showErrorAlert(title: "", message: Constant.PASSWORD_MISSMATCH)
+            hideLoader()
+            showErrorAlert(title: "Note!", message: Constant.PASSWORD_MISSMATCH)
         }
     }
     
     
-    func gotToDashboardScreen() {
+    func gotToSignInScreen() {
         
         hideLoader()
         
-        let controller = UIStoryboard(name: AppConstants.MAIN, bundle: nil).instantiateViewController(withIdentifier: AppConstants.PROJECT_VC) as! ProjectViewController
-        controller.modalPresentationStyle = .fullScreen
-        present(controller, animated: true, completion: nil)
+        if let storyboard = self.storyboard {
+            let vc = storyboard.instantiateViewController(withIdentifier:  AppConstants.SIGN_IN) as! SignInViewController
+            vc.modalPresentationStyle = .fullScreen
+            self.present(vc, animated: false, completion: nil)
+        }
+        
+//        let controller = UIStoryboard(name: AppConstants.MAIN, bundle: nil).instantiateViewController(withIdentifier: AppConstants.SIGN_IN) as! SignInViewController
+//        controller.modalPresentationStyle = .fullScreen
+//        present(controller, animated: true, completion: nil)
     }
     
     private func showErrorAlert(title: String, message: String) {
@@ -116,6 +125,7 @@ extension SignUpViewController : UITextFieldDelegate {
         if textField == tfPassword {
             tfConfirmPassword.becomeFirstResponder()
         }
+        
         if textField == tfConfirmPassword {
             dismissKeyboard()
             return false

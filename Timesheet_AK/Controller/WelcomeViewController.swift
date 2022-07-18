@@ -10,6 +10,8 @@ import FirebaseAuth
 
 class WelcomeViewController: UIViewController {
     
+    private lazy var defaults = UserDefaults.standard
+    
     @IBOutlet weak var appName : UILabel!
 
     override func viewDidLoad() {
@@ -35,7 +37,7 @@ class WelcomeViewController: UIViewController {
     }
     
     private func checkForLoginUser() {
-        if Auth.auth().currentUser != nil {
+        if let _ = defaults.string(forKey: AppConstants.USER_UID) {
             goToHomeScreen()
         }
     }

@@ -12,10 +12,14 @@
 		88009DEF287B3F1B005E3B7B /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88009DEE287B3F1B005E3B7B /* TaskViewController.swift */; };
 		88009DF1287B474D005E3B7B /* TaskTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88009DF0287B474D005E3B7B /* TaskTableCell.swift */; };
 		8802080D287F0CF4002D8F65 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8802080C287F0CF4002D8F65 /* AppConstants.swift */; };
+		8802ED9428859F2600C8FC0C /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8802ED9328859F2600C8FC0C /* UIImage.swift */; };
 		8804FE99287D76DE00958FFD /* Projects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8804FE98287D76DE00958FFD /* Projects.swift */; };
 		880A8B6528797606008BFE95 /* ProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880A8B6428797606008BFE95 /* ProjectViewController.swift */; };
 		880A8B67287988CE008BFE95 /* AddProjectDialogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880A8B66287988CE008BFE95 /* AddProjectDialogView.swift */; };
 		8853E7A028818A2F009F9B99 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8853E79F28818A2F009F9B99 /* ProfileViewController.swift */; };
+		885B53FC28856EB900C4F253 /* AuthFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885B53FB28856EB900C4F253 /* AuthFile.swift */; };
+		885B53FE28857B7E00C4F253 /* LocalStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885B53FD28857B7E00C4F253 /* LocalStorage.swift */; };
+		88765D6F2885859F0010075E /* ShowToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88765D6E2885859F0010075E /* ShowToast.swift */; };
 		887B966C2883E4E600FB6A09 /* TableViewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887B966B2883E4E600FB6A09 /* TableViewHelper.swift */; };
 		887B966E28841C0500FB6A09 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887B966D28841C0500FB6A09 /* UIColor.swift */; };
 		88A2135E287EC4AD00A08A1A /* Tasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A2135D287EC4AD00A08A1A /* Tasks.swift */; };
@@ -41,10 +45,14 @@
 		88009DEE287B3F1B005E3B7B /* TaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
 		88009DF0287B474D005E3B7B /* TaskTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableCell.swift; sourceTree = "<group>"; };
 		8802080C287F0CF4002D8F65 /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
+		8802ED9328859F2600C8FC0C /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		8804FE98287D76DE00958FFD /* Projects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Projects.swift; sourceTree = "<group>"; };
 		880A8B6428797606008BFE95 /* ProjectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectViewController.swift; sourceTree = "<group>"; };
 		880A8B66287988CE008BFE95 /* AddProjectDialogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProjectDialogView.swift; sourceTree = "<group>"; };
 		8853E79F28818A2F009F9B99 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		885B53FB28856EB900C4F253 /* AuthFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthFile.swift; sourceTree = "<group>"; };
+		885B53FD28857B7E00C4F253 /* LocalStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStorage.swift; sourceTree = "<group>"; };
+		88765D6E2885859F0010075E /* ShowToast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowToast.swift; sourceTree = "<group>"; };
 		887B966B2883E4E600FB6A09 /* TableViewHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewHelper.swift; sourceTree = "<group>"; };
 		887B966D28841C0500FB6A09 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		88A2135D287EC4AD00A08A1A /* Tasks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tasks.swift; sourceTree = "<group>"; };
@@ -83,6 +91,10 @@
 				8802080C287F0CF4002D8F65 /* AppConstants.swift */,
 				887B966B2883E4E600FB6A09 /* TableViewHelper.swift */,
 				887B966D28841C0500FB6A09 /* UIColor.swift */,
+				885B53FB28856EB900C4F253 /* AuthFile.swift */,
+				885B53FD28857B7E00C4F253 /* LocalStorage.swift */,
+				88765D6E2885859F0010075E /* ShowToast.swift */,
+				8802ED9328859F2600C8FC0C /* UIImage.swift */,
 			);
 			path = AppUtlis;
 			sourceTree = "<group>";
@@ -244,6 +256,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				885B53FC28856EB900C4F253 /* AuthFile.swift in Sources */,
+				8802ED9428859F2600C8FC0C /* UIImage.swift in Sources */,
+				885B53FE28857B7E00C4F253 /* LocalStorage.swift in Sources */,
 				88EA772E28784AAF00814192 /* SignUpViewController.swift in Sources */,
 				880A8B6528797606008BFE95 /* ProjectViewController.swift in Sources */,
 				880A8B67287988CE008BFE95 /* AddProjectDialogView.swift in Sources */,
@@ -251,6 +266,7 @@
 				88009DEF287B3F1B005E3B7B /* TaskViewController.swift in Sources */,
 				88D30508287808420006F69E /* Timesheet_AK.xcdatamodeld in Sources */,
 				8853E7A028818A2F009F9B99 /* ProfileViewController.swift in Sources */,
+				88765D6F2885859F0010075E /* ShowToast.swift in Sources */,
 				8804FE99287D76DE00958FFD /* Projects.swift in Sources */,
 				88009DED287B3DA7005E3B7B /* AddTaskDialogView.swift in Sources */,
 				88009DF1287B474D005E3B7B /* TaskTableCell.swift in Sources */,

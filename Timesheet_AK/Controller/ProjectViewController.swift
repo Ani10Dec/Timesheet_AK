@@ -76,8 +76,12 @@ class ProjectViewController: UIViewController {
     
     private func loadFirebaseData() {
         
+        guard let uid = AuthFile.uid else {
+            return
+        }
+        
         db.collection(AppConstants.USERS)
-            .document(Auth.auth().currentUser?.uid ?? "")
+            .document(uid)
             .collection(AppConstants.COLLECTION_NAME)
             .addSnapshotListener { (snapShots, error) in
                 
@@ -102,6 +106,7 @@ class ProjectViewController: UIViewController {
                         self.filterData = self.projectList
                     }
                 }
+                
             }
         refreshControl.endRefreshing()
     }
@@ -151,6 +156,7 @@ extension ProjectViewController : UITableViewDataSource, UITableViewDelegate {
             self.channelTableView.setEmptyMessage(Constant.EMPTY_TABLE_VIEW_TEXT)
         } else {
             self.channelTableView.restore()
+            
         }
         
         return filterData.count
@@ -168,10 +174,13 @@ extension ProjectViewController : UITableViewDataSource, UITableViewDelegate {
             
             let yes = UIAlertAction(title: AppConstants.YES, style: .destructive) { _ in
                 
-//                self.channelTableView.deleteRows(at: [indexPath], with: .automatic)
+                guard let uid = AuthFile.uid else {
+                    return
+                }
                 
+                // Remove collection with documents
                 self.db.collection(AppConstants.USERS)
-                    .document(Auth.auth().currentUser?.uid ?? "")
+                    .document(uid)
                     .collection(AppConstants.COLLECTION_NAME)
                     .document(self.filterData[indexPath.row]
                         .projectName).collection(AppConstants.TASKS)
@@ -184,8 +193,9 @@ extension ProjectViewController : UITableViewDataSource, UITableViewDelegate {
                         }
                     }
                 
+                // Remove collection
                 self.db.collection(AppConstants.USERS)
-                    .document(Auth.auth().currentUser?.uid ?? "")
+                    .document(uid)
                     .collection(AppConstants.COLLECTION_NAME)
                     .document(self.filterData[indexPath.row]
                         .projectName).delete { error in

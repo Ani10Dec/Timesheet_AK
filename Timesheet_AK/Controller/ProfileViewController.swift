@@ -34,6 +34,8 @@ class ProfileViewController: UIViewController {
             do { try Auth.auth().signOut() }
             catch { print("already logged out") }
             
+            UserDefaults.standard.removeObject(forKey: AppConstants.USER_UID)
+            
             if let storyboard = self.storyboard {
                 let vc = storyboard.instantiateViewController(withIdentifier: "signInVC") as! SignInViewController
                 self.present(vc, animated: false, completion: nil)

@@ -52,31 +52,40 @@ class SignInViewController: UIViewController {
             }
             
             guard authError == nil else {
-                strongSelf.showCreateAccountAlert()
+                self?.hideLoader()
+                strongSelf.showCreateAccountAlert(AppConstants.ERROR, authError!)
                 return
             }
             
-            self!.gotToDashboardScreen()
+            self?.showToast(message: "Sign in sucessfull", font: .systemFont(ofSize: 12.0))
+            self!.gotToLoginScreen()
             
         })
         
     }
     
-    func gotToDashboardScreen() {
+    func gotToLoginScreen() {
+        
         hideLoader()
+        
+        guard let uid = Auth.auth().currentUser?.uid else {
+            return
+        }
+        
+        let defaults = UserDefaults.standard
+        defaults.setValue(uid, forKey: AppConstants.USER_UID)
+        AuthFile.uid = defaults.string(forKey: AppConstants.USER_UID)
+        
         let controller = UIStoryboard(name: AppConstants.MAIN, bundle: nil).instantiateViewController(withIdentifier: AppConstants.PROJECT_VC) as! ProjectViewController
         controller.modalPresentationStyle = .fullScreen
         present(controller, animated: true, completion: nil)
     }
     
-    func showCreateAccountAlert() {
-        let alert = UIAlertController(title: Constant.NO_USER_FOUND, message: Constant.ALERT_DESC, preferredStyle: .alert)
+    func showCreateAccountAlert(_ title: String, _ desc: Error) {
+        let alert = UIAlertController(title: title, message: desc.localizedDescription, preferredStyle: .alert)
         
-        alert.addAction(UIAlertAction(title: AppConstants.YES, style: .default, handler: { _ in
-            self.goToSignUp()
-        }))
         
-        alert.addAction(UIAlertAction(title: AppConstants.NO, style: .cancel, handler: { _ in
+        alert.addAction(UIAlertAction(title: AppConstants.OK, style: .cancel, handler: { _ in
             alert.dismiss(animated: true)
         }))
         
@@ -107,7 +116,7 @@ class SignInViewController: UIViewController {
     }
     
     @objc func goToSignUpScreen() {
-       goToSignUp()
+        goToSignUp()
     }
     
     func addRightEyeImage() {
@@ -115,11 +124,11 @@ class SignInViewController: UIViewController {
         let touchRecogniser = UITapGestureRecognizer(target: self, action: #selector(eyeBtnPressed))
         rightEyeImage.isUserInteractionEnabled = true
         rightEyeImage.addGestureRecognizer(touchRecogniser)
-        rightEyeImage.image = UIImage(named: "eye_light")
-
+//        rightEyeImage.image = UIImage.openEyeImage
+        
         tfPassword.rightView = rightEyeImage
         tfPassword.rightViewMode = .always
-
+        
     }
     
     @objc private func eyeBtnPressed(){
@@ -132,12 +141,12 @@ class SignInViewController: UIViewController {
         
         isPasswordVisible = !isPasswordVisible
     }
-
+    
     func showLoader() {
         spinner.startAnimating()
         loadingView.isHidden = false
     }
-
+    
     func hideLoader() {
         spinner.stopAnimating()
         loadingView.isHidden = true

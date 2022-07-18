@@ -126,6 +126,10 @@ class AddTaskDialogView: UIViewController {
             print("No segment selected")
         }
         
+        guard let uid = AuthFile.uid else {
+            return
+        }
+        
         let docData: [String: Any] = [
             AppConstants.TaskConstants.TASK_NAME: name,
             AppConstants.TaskConstants.TASK_MONTH: month,
@@ -134,7 +138,7 @@ class AddTaskDialogView: UIViewController {
         ]
         
         let database = db.collection(AppConstants.USERS)
-            .document(Auth.auth().currentUser?.uid ?? "")
+            .document(uid)
             .collection(AppConstants.COLLECTION_NAME)
             .document(projectName).collection(AppConstants.TASKS)
             .document(name)
