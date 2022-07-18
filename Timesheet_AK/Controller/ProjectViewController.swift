@@ -168,7 +168,7 @@ extension ProjectViewController : UITableViewDataSource, UITableViewDelegate {
             
             let yes = UIAlertAction(title: AppConstants.YES, style: .destructive) { _ in
                 
-                self.channelTableView.deleteRows(at: [indexPath], with: .automatic)
+//                self.channelTableView.deleteRows(at: [indexPath], with: .automatic)
                 
                 self.db.collection(AppConstants.USERS)
                     .document(Auth.auth().currentUser?.uid ?? "")
